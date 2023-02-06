@@ -1,0 +1,32 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    name: Publish
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 8
+
+      - name: ci.sh
+        run: ./ci.sh
+        env:
+          MAVEN_GROUP_ID: ${{ vars.MAVEN_GROUP_ID }}
+          MAVEN_USERNAME: ${{ vars.MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
