@@ -4,13 +4,15 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
-        maven("https://oss.jfrog.org/oss-snapshot-local/")
     }
 
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
+}
+
+plugins {
+    `maven-publish`
 }
 
 // a small hack: the variable must be named like the property
@@ -28,6 +30,8 @@ val groupProperty = if (group.endsWith(".antlr-kotlin")) {
 }
 
 allprojects {
+    apply(plugin = "maven-publish")
+
     // ... because `version` is another var here.
     // when version is hardcoded here, jitpack can not overwrite it.
     // the default version can now be changed in gradle.properties
@@ -44,8 +48,19 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
-        maven("https://oss.jfrog.org/oss-snapshot-local/")
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "OSSRH"
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
+                }
+            }
+        }
     }
 }
 
