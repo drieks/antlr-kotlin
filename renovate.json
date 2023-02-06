@@ -1,5 +1,19 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "commitMessagePrefix": "Upgrade: ",
+  "packageRules": [
+    {
+      "groupName": "gradle 8",
+      "groupSlug": "gradle8",
+      "matchPackagePrefixes": [
+        "gradle"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    }
+  ],
   "extends": [
     "config:base"
   ]

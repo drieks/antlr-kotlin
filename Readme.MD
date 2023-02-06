@@ -3,6 +3,9 @@
 [![Build Status](https://travis-ci.org/Strumenta/antlr-kotlin.svg?branch=master)](https://travis-ci.org/Strumenta/antlr-kotlin) [![Release](https://jitpack.io/v/com.strumenta/antlr-kotlin.svg)](https://jitpack.io/#com.strumenta/antlr-kotlin)
 [![License Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
+Latest Version: 0.0.7
+[Changelog](CHANGELOG.md)
+
 This project contains everything is needed to support Kotlin as a target for ANTLR. 
 It means:
 
