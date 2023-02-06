@@ -1,42 +1,28 @@
 // a small hack: the variable must be named like the property
-// jitpack will pass -Pversion=..., so `val version` is required here.
 val version: String by project
 // we create an alias here...
 val versionProperty = version
 // do the same for group
 val group: String by project
-val groupProperty = if (group.endsWith(".antlr-kotlin")) {
-    group
-} else {
-    // just another jitpack hack
-    "$group.antlr-kotlin"
-}
+val groupEnv: String? = System.getenv("MAVEN_GROUP_ID")
+val groupProperty = groupEnv ?: group
 
 //val antlrVersion = "4.7.1"
 val antlrKotlinVersion = versionProperty
-// you can also use a jitpack version:
-//val antlrKotlinVersion = "86a86f1968"
 
 buildscript {
     // we have to re-declare this here :-(
 
     // a small hack: the variable must be named like the property
-    // jitpack will pass -Pversion=..., so `val version` is required here.
     val version: String by project
     // we create an alias here...
     val versionProperty = version
     // do the same for group
     val group: String by project
-    val groupProperty = if (group.endsWith(".antlr-kotlin")) {
-        group
-    } else {
-        // just another jitpack hack
-        "$group.antlr-kotlin"
-    }
+    val groupEnv: String? = System.getenv("MAVEN_GROUP_ID")
+    val groupProperty = groupEnv ?: group
 
     val antlrKotlinVersion = versionProperty
-    // you can also use a jitpack version (we have to re-declare this here):
-    //val antlrKotlinVersion = "86a86f1968"
 
     dependencies {
         // add the plugin to the classpath
@@ -45,12 +31,10 @@ buildscript {
 }
 
 repositories {
-    // used for local development and while building by travis ci and jitpack.io
+    // used for local development
     mavenLocal()
     // used to download antlr4
     mavenCentral()
-    // used to download antlr-kotlin-runtime
-    maven("https://jitpack.io")
 }
 
 plugins {

@@ -2,6 +2,8 @@ buildscript {
     ext.kotlin_version = '1.8.20'
     ext.projectVersion = '0.0.7'
 
+    group = System.getenv('MAVEN_GROUP_ID') ?: 'com.strumenta.antlr-kotlin'
+
     repositories {
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
@@ -10,9 +12,11 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "gradle.plugin.com.craigburke.gradle:karma-gradle:1.4.4"
-        classpath "com.strumenta.antlr-kotlin:antlr-kotlin-gradle-plugin:$projectVersion"
+        classpath "$group:antlr-kotlin-gradle-plugin:$projectVersion"
     }
 }
+
+group = System.getenv('MAVEN_GROUP_ID') ?: 'com.strumenta.antlr-kotlin'
 
 apply plugin: 'kotlin2js'
 apply plugin: 'idea'
@@ -22,11 +26,10 @@ apply plugin: 'com.strumenta.antlrkotlin'
 repositories {
     mavenCentral()
     mavenLocal()
-    jcenter()
 }
 
 dependencies {
-    compile "com.strumenta.antlr-kotlin:antlr-kotlin-runtime-js:$projectVersion"
+    compile "$group:antlr-kotlin-runtime-js:$projectVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"

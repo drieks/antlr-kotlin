@@ -11,7 +11,7 @@ apply(plugin = "maven-publish")
 
 kotlin {
     jvm()
-    js(BOTH) {
+    js(IR) {
         browser {
         }
         nodejs {
