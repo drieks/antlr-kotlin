@@ -11,6 +11,10 @@ buildscript {
     }
 }
 
+plugins {
+    `maven-publish`
+}
+
 // a small hack: the variable must be named like the property
 // jitpack will pass -Pversion=..., so `val version` is required here.
 val version: String by project
@@ -26,6 +30,8 @@ val groupProperty = if (group.endsWith(".antlr-kotlin")) {
 }
 
 allprojects {
+    apply(plugin = "maven-publish")
+
     // ... because `version` is another var here.
     // when version is hardcoded here, jitpack can not overwrite it.
     // the default version can now be changed in gradle.properties
@@ -42,6 +48,19 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "OSSRH"
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
+                }
+            }
+        }
     }
 }
 
