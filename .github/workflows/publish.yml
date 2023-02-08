@@ -1,31 +1,28 @@
 name: Build Pull Request
 
 on:
-  - push
+  push:
+    tags:
+      - '*'
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        java:
-          - '8'
-
-    name: Publish Java ${{ matrix.Java }}
+    name: Publish
 
     steps:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
       - name: Set up JDK 8
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: ${{ matrix.java }}
-
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+          java-version: 8
 
       - name: ci.sh
         run: ./ci.sh
