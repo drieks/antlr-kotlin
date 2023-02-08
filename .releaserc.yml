@@ -1,0 +1,34 @@
+branches:
+  - name: main
+plugins:
+  - - '@semantic-release/commit-analyzer'
+    - preset: eslint
+      releaseRules:
+        - tag: Test
+          release: patch
+        - tag: Fix
+          release: patch
+        - tag: Build
+          release: patch
+        - tag: Upgrade
+          release: patch
+        - tag: Chore
+          release: patch
+        - tag: Update
+          release: minor
+        - tag: New
+          release: minor
+        - tag: Breaking
+          release: major
+  - - '@semantic-release/exec'
+    - prepareCmd: |-
+        sed -i "s/^version=.*/version=${nextRelease.version}/" gradle.properties
+        sed -i "s/^version=.*/version=${nextRelease.version}/" antlr-kotlin-examples-mpp/gradle.properties
+        sed -i "s/^\\([[:space:]]*\\)\\(ext.projectVersion[[:space:]]*=[[:space:]]*\\)'.*'/\\1\\2'${nextRelease.version}'/" antlr-kotlin-examples-js/build.gradle
+  - - '@semantic-release/git'
+    - assets:
+        - CHANGELOG.md
+        - gradle.properties
+        - antlr-kotlin-examples-mpp/gradle.properties
+        - antlr-kotlin-examples-js/build.gradle
+      message: "Release: ${nextRelease.version}\n\n${nextRelease.notes}"
