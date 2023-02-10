@@ -49,6 +49,11 @@ jobs:
 
       - name: Semantic Release
         uses: docker://ghcr.io/codfish/semantic-release-action:v2
+        with:
+          extra_plugins: |
+            @semantic-release/commit-analyzer
+            @semantic-release/exec
+            @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
 
