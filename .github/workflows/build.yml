@@ -51,7 +51,7 @@ jobs:
         uses: docker://ghcr.io/codfish/semantic-release-action:v2
         with:
           additional_packages: |
-            ['@semantic-release/commit-analyzer','@semantic-release/exec','@semantic-release/git']
+            ['@semantic-release/commit-analyzer','@semantic-release/exec','@semantic-release/git','conventional-changelog-eslint']
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
 
