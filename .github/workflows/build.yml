@@ -55,7 +55,7 @@ jobs:
           persist-credentials: false
 
       - name: Semantic Release
-        uses: docker://ghcr.io/codfish/semantic-release-action:v2
+        uses: docker://ghcr.io/codfish/semantic-release-action:v3
         with:
           additional_packages: |
             ['@semantic-release/commit-analyzer','@semantic-release/release-notes-generator','@semantic-release/changelog','@semantic-release/exec','@semantic-release/git','conventional-changelog-eslint','conventional-changelog-conventionalcommits']
