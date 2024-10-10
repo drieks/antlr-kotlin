@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.8.20'
+    ext.kotlin_version = '2.0.21'
     ext.projectVersion = '1.0.0'
 
     group = System.getenv('MAVEN_GROUP_ID') ?: 'com.strumenta.antlr-kotlin'
