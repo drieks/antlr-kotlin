@@ -38,7 +38,7 @@ repositories {
 }
 
 plugins {
-    kotlin("multiplatform") version "1.8.20"
+    kotlin("multiplatform") version "1.9.25"
     // do not add the plugin here, it contains only a task
     //id("com.strumenta.antlr-kotlin") version "0.0.5"
 }
